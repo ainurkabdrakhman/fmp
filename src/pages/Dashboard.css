@@ -1,0 +1,97 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Russo+One&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html, body {
+  width: 100%;
+  height: 100%;
+  font-family: 'Poppins', sans-serif;
+}
+.dashboard-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+.dashboard-container {
+  flex: 1;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 120px 40px 60px; 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.dashboard-content {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 30px;
+  width: 100%;
+}
+.card {
+  background: #fff;
+  padding: 25px;
+  border-radius: 30px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+.card h3 {
+  color: #0a3d62;
+  font-family:  'Russo One', sans-serif;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+.card p {
+  color: #555;
+  font-size: 15px;
+}
+.table-work{
+  width: 100%;
+  border-collapse: collapse;
+}
+.table-work th,
+.table-work td{
+  border-bottom: 1px solid #ddd;
+  padding: 10px 14px;
+}
+.table-work th{
+  background-color: #f7f9fc;
+  color: #0a3d62;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  letter-spacing: 0.5px;
+}
+.table-work tr:hover{
+  background-color: #f1f1f1;
+}
+.status-open{
+  color: orange;
+  font-weight: 600;
+}
+.status-confirmed{
+  color: blue;
+  font-weight: 600;
+}
+.status-completed{
+  color: green;
+  font-weight: 600;
+}
+@media (max-width: 768px) {
+  .dashboard-header {
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+  }
+
+  .dashboard-header input[type="search"] {
+    width: 100%;
+  }
+}

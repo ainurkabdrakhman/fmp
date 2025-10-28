@@ -1,0 +1,118 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Russo+One&display=swap');
+
+.details-container {
+  max-width: 1000px;
+  margin: 80px auto;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  padding: 30px 40px;
+  font-family: "Poppins", sans-serif;
+}
+
+.details-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid #eee;
+  padding-bottom: 15px;
+  margin-bottom: 20px;
+  font-family: 'Russo One', sans-serif;
+}
+
+.order-id {
+  font-size: 14px;
+  color: #666;
+}
+
+.status-badge {
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-weight: bold;
+  color: white;
+  text-transform: uppercase;
+  font-size: 12px;
+}
+
+.status-badge.low {
+  background-color: #28a745;
+}
+.status-badge.medium {
+  background-color: #f39c12;
+}
+.status-badge.high {
+  background-color: #dc3545;
+}
+
+.details-content .section {
+  margin-bottom: 30px;
+}
+
+.details-content h3 {
+  color: #0a3d62;
+  margin-bottom: 15px;
+  font-family: 'Russo One', sans-serif;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 5px;
+}
+
+.details-content p {
+  margin: 6px 0;
+  font-size: 15px;
+}
+
+.section label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.section input[type="text"],
+.section input[type="date"] {
+  width: 100%;
+  padding: 8px 10px;
+  margin-top: 4px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+  font-family: "Poppins", sans-serif;
+  transition: border 0.2s;
+}
+
+.section input[type="text"]:focus,
+.section input[type="date"]:focus {
+  border-color: #0a3d62;
+  outline: none;
+}
+
+.section button {
+  margin-top: 10px;
+  padding: 8px 20px;
+  background-color: #0a3d62;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.2s;
+}
+
+.section button:hover {
+  background-color: #07416b;
+}
+
+.btn-back {
+  display: inline-block;
+  padding: 8px 15px;
+  background-color: #0a3d62;
+  color: white;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: 0.2s;
+  margin-top: 20px;
+}
+
+.btn-back:hover {
+  background-color: #07416b;
+}
