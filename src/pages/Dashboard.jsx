@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-
 import "./Dashboard.css";
 
-function Dashboard(){
-   const [workOrders, setWorkOrders] = useState([]);
+function Dashboard() {
+  const [workOrders, setWorkOrders] = useState([]);
+  const userRole = localStorage.getItem("userRole"); 
 
   useEffect(() => {
     fetch("http://localhost:5000/workorders")
@@ -12,9 +12,9 @@ function Dashboard(){
       .then((data) => setWorkOrders(data))
       .catch((err) => console.error(err));
   }, []);
-      
-  const getStatusClass = (status) =>{
-    switch(status){
+
+  const getStatusClass = (status) => {
+    switch (status) {
       case "Open":
         return "status-open";
       case "Confirmed":
@@ -26,48 +26,52 @@ function Dashboard(){
     }
   };
 
-    return(
-
+  return (
     <div className="dashboard-page">
-      
       <main className="dashboard-container">
         <div className="dashboard-content">
           <div className="card">
-            <h3>Active Work Orders</h3>
+            <h3>
+              {userRole === "admin"
+                ? "Active Work Orders (Admin View)"
+                : "My Work Orders (Technician View)"}
+            </h3>
+
             <table className="table-work">
               <thead>
                 <tr>
                   <th>Work Order</th>
-                  <th>Main Coordinator</th>
+                  {userRole === "admin" && <th>Main Coordinator</th>}
                   <th>Responsible Engineer</th>
                   <th>Priority</th>
                   <th>Status</th>
-                  <th>Lead Craft</th>
+                  {userRole === "admin" && <th>Lead Craft</th>}
                   <th>Start</th>
                   <th>Finish</th>
-                  <th>Updated</th>
+                  {userRole === "admin" && <th>Updated</th>}
                 </tr>
               </thead>
-              
-             <tbody>
-          {workOrders.map((wo) => (
-            <tr key={wo.id}>
-              <td>
-                  <Link to={`/workorder/${encodeURIComponent(wo.work_order)}`}>
-                       {wo.work_order}
-                  </Link>
-              </td>
-              <td>{wo.maint_coordinator || "-"}</td>
-              <td>{wo.responsible_engineer || "-"}</td>
-              <td>{wo.priority}</td>
-              <td>{wo.status}</td>
-              <td>{wo.lead_craft || "-"}</td>
-              <td>{wo.start_date || "-"}</td>
-              <td>{wo.finish_date || "-"}</td>
-              <td>{wo.update_date || "-"}</td>
-            </tr>
-          ))}
-        </tbody>
+
+              <tbody>
+                {workOrders.map((wo) => (
+                  <tr key={wo.id}>
+                    <td>
+                      <Link to={`/workorder/${encodeURIComponent(wo.work_order)}`}>
+                        {wo.work_order}
+                      </Link>
+                    </td>
+
+                    {userRole === "admin" && <td>{wo.maint_coordinator || "-"}</td>}
+                    <td>{wo.responsible_engineer || "-"}</td>
+                    <td>{wo.priority}</td>
+                    <td className={getStatusClass(wo.status)}>{wo.status}</td>
+                    {userRole === "admin" && <td>{wo.lead_craft || "-"}</td>}
+                    <td>{wo.start_date || "-"}</td>
+                    <td>{wo.finish_date || "-"}</td>
+                    {userRole === "admin" && <td>{wo.update_date || "-"}</td>}
+                  </tr>
+                ))}
+              </tbody>
             </table>
           </div>
         </div>

@@ -1,0 +1,123 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+.new-workorder-container {
+  font-family: 'Poppins', sans-serif;
+  max-width: 650px;
+  margin: 60px auto;
+  padding: 40px;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.new-workorder-container h2 {
+  text-align: center;
+  color: #0a3d62;
+  margin-bottom: 25px;
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+
+.new-workorder-container form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.new-workorder-container label {
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 4px;
+}
+
+.new-workorder-container input,
+.new-workorder-container textarea,
+.new-workorder-container select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 15px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.new-workorder-container input:focus,
+.new-workorder-container textarea:focus,
+.new-workorder-container select:focus {
+  border-color: #1976d2;
+  box-shadow: 0 0 0 2px rgba(25, 118, 210, 0.15);
+  outline: none;
+}
+
+.new-workorder-container textarea {
+  min-height: 80px;
+  resize: vertical;
+}
+
+.form-actions {
+  display: flex;
+  flex-direction: column; 
+  align-items: flex-start; 
+  gap: 12px;
+  margin-top: 25px;
+}
+
+.form-actions button,
+.btn-back {
+  background-color: #1976d2;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 15px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.form-actions button:hover,
+.btn-back:hover {
+  background-color: #1565c0;
+}
+
+.new-workorder-container button {
+  background-color: #1976d2;
+  color: #fff;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 600;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+
+@media (max-width: 600px) {
+  .new-workorder-container {
+    margin: 20px;
+    padding: 25px;
+  }
+
+  .form-actions {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .new-workorder-container button {
+    width: 100%;
+  }
+
+  .btn-back {
+    text-align: center;
+    width: 100%;
+  }
+}
+

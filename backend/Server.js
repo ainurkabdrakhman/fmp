@@ -7,20 +7,11 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Подключаем маршруты
-const workOrdersRouter = require("./routes/workorders");
-app.use("/workorders", workOrdersRouter);
-
-const usersRouter = require("./routes/users");
-app.use("/users", usersRouter);
-
-// Создаем базу данных
 const db = new sqlite3.Database(path.join(__dirname, "database.sqlite"), (err) => {
   if (err) console.error("Database error:", err.message);
   else console.log("Connected to database");
 });
 
-// Создаем таблицу workorders, если нет
 db.run(`CREATE TABLE IF NOT EXISTS workorders (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   work_order TEXT,
@@ -45,7 +36,6 @@ db.run(`CREATE TABLE IF NOT EXISTS workorders (
   cause TEXT
 )`);
 
-// Создаем таблицу users, если нет
 db.run(`CREATE TABLE IF NOT EXISTS users (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   username TEXT UNIQUE,
@@ -53,7 +43,6 @@ db.run(`CREATE TABLE IF NOT EXISTS users (
   role TEXT
 )`);
 
-// Добавляем пользователей (если их нет)
 db.get("SELECT COUNT(*) as count FROM users", (err, row) => {
   if (row.count === 0) {
     db.run(`INSERT INTO users(username, password, role) VALUES
@@ -62,7 +51,31 @@ db.get("SELECT COUNT(*) as count FROM users", (err, row) => {
   }
 });
 
+app.delete("/workorders/:work_order", (req, res) => {
+  const work_order = decodeURIComponent(req.params.work_order);
+  const sql = "DELETE FROM workorders WHERE work_order = ?";
+
+  db.run(sql, [work_order], function (err) {
+    if (err) {
+      console.error("Error deleting Work Order:", err.message);
+      return res.status(500).json({ error: "Failed to delete Work Order" });
+    }
+    if (this.changes === 0) {
+      return res.status(404).json({ error: "Work Order not found" });
+    }
+    res.json({ message: "Work Order deleted successfully" });
+  });
+});
+
+
+const workOrdersRouter = require("./routes/workorders");
+app.use("/workorders", workOrdersRouter);
+
+const usersRouter = require("./routes/users");
+app.use("/users", usersRouter);
+
+const commentsRouter = require("./routes/comments");
+app.use("/comments", commentsRouter);
+
 const PORT = 5000;
-app.listen(PORT, () => console.log(`Server running at http://localhost:${PORT}`));
-
-
+app.listen(PORT, () => console.log(` Server running at http://localhost:${PORT}`));

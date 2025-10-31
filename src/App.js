@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route, useLocation, Navigate } from "react-router-dom";
+import {BrowserRouter as Router, Routes, Route, useLocation, Navigate,} from "react-router-dom";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Login from "./pages/Login";
@@ -9,19 +9,17 @@ import WorkOrderDetails from "./pages/WorkOrderDetails";
 import EngineerProfiles from "./pages/EngineerProfiles";
 import EngineerProfileDetails from "./pages/EngineerProfileDetails";
 import Reports from "./pages/Reports";
+import NewWorkOrder from "./pages/NewWorkOrder";
 import "./App.css";
 
-// Защищённый маршрут
 function ProtectedRoute({ allowedRoles, children }) {
-  const userRole = localStorage.getItem("userRole"); // роль пользователя из локального хранилища
+  const userRole = localStorage.getItem("userRole");
 
   if (!userRole) {
-    // пользователь не залогинен
     return <Navigate to="/" />;
   }
 
   if (!allowedRoles.includes(userRole)) {
-    // пользователь не имеет права
     return <Navigate to="/dashboard" />;
   }
 
@@ -40,7 +38,6 @@ function AppContent() {
         <Routes>
           <Route path="/" element={<Login />} />
 
-          {/* Доступ для всех ролей */}
           <Route
             path="/dashboard"
             element={
@@ -49,6 +46,7 @@ function AppContent() {
               </ProtectedRoute>
             }
           />
+
           <Route
             path="/workorder/:id"
             element={
@@ -57,20 +55,28 @@ function AppContent() {
               </ProtectedRoute>
             }
           />
+          <Route
+            path="/new-workorder"
+            element={
+              <ProtectedRoute allowedRoles={["admin", "technician"]}>
+                <NewWorkOrder />
+              </ProtectedRoute>
+            }
+          />
 
-          {/* Только админ */}
           <Route
             path="/workload"
             element={
-              <ProtectedRoute allowedRoles={["admin"]}>
+              <ProtectedRoute allowedRoles={["admin", "technician"]}>
                 <Workload />
               </ProtectedRoute>
             }
           />
+
           <Route
             path="/engineers"
             element={
-              <ProtectedRoute allowedRoles={["admin"]}>
+              <ProtectedRoute allowedRoles={["admin", "technician"]}>
                 <EngineerProfiles />
               </ProtectedRoute>
             }
@@ -78,7 +84,7 @@ function AppContent() {
           <Route
             path="/profiles"
             element={
-              <ProtectedRoute allowedRoles={["admin"]}>
+              <ProtectedRoute allowedRoles={["admin", "technician"]}>
                 <EngineerProfiles />
               </ProtectedRoute>
             }
@@ -86,15 +92,16 @@ function AppContent() {
           <Route
             path="/profiles/:id"
             element={
-              <ProtectedRoute allowedRoles={["admin"]}>
+              <ProtectedRoute allowedRoles={["admin", "technician"]}>
                 <EngineerProfileDetails />
               </ProtectedRoute>
             }
           />
+
           <Route
             path="/reports"
             element={
-              <ProtectedRoute allowedRoles={["admin"]}>
+              <ProtectedRoute allowedRoles={["admin", "technician"]}>
                 <Reports />
               </ProtectedRoute>
             }

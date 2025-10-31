@@ -5,7 +5,6 @@ const path = require("path");
 
 const db = new sqlite3.Database(path.join(__dirname, "../database.sqlite"));
 
-// Создаем таблицу users, если нет
 db.run(`CREATE TABLE IF NOT EXISTS users (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   username TEXT UNIQUE,
@@ -13,12 +12,10 @@ db.run(`CREATE TABLE IF NOT EXISTS users (
   role TEXT
 )`);
 
-// Добавляем пользователей только один раз
 db.run(`INSERT OR IGNORE INTO users(username, password, role) VALUES
  ('admin', '12345', 'admin'),
  ('tech', '67890', 'technician')`);
 
-// GET-запрос для логина
 router.get("/login", (req, res) => {
   const { username, password } = req.query;
   if (!username || !password) return res.status(400).json({ error: "Missing username or password" });
